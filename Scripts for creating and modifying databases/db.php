@@ -26,7 +26,8 @@ try {
     CREATE TABLE IF NOT EXISTS templates (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        html TEXT NOT NULL
+        html TEXT NOT NULL,
+        COLUMN html_code TEXT
     );
 
     CREATE TABLE IF NOT EXISTS sales_points (
@@ -44,14 +45,18 @@ try {
     );
 
     CREATE TABLE IF NOT EXISTS vouchers (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        batch_id INTEGER,
-        username TEXT NOT NULL,
-        password TEXT,
-        status TEXT DEFAULT 'new',
-        expires_at DATETIME,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    batch_id INTEGER,
+    username TEXT NOT NULL,
+    password TEXT,
+    profile TEXT NOT NULL,
+    pos TEXT,
+    template_id INTEGER,
+    status TEXT DEFAULT 'new',
+    expires_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (template_id) REFERENCES templates(id)
+);
     ");
 
     echo "تم إنشاء الجداول بنجاح ✅";
